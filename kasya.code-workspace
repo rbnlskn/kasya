@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../kasya-legacy"
+		},
+		{
+			"path": "../kasya-rebuild-v1"
+		}
+	],
+	"settings": {}
+}
