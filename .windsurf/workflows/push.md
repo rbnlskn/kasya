@@ -2,19 +2,23 @@
 description: Push completed parent Linear issue to GitHub with automatic PR creation
 ---
 
+> This workflow is for **Linear-linked work only**. For non-issue commits (tooling, workflows, repo config), use `/commit` instead.
+
 ## Commit Message Format
 
-Every issue produces **exactly ONE commit**. Use this format:
+Every parent issue produces **exactly ONE commit**:
 
 ```
 <type>(<scope>): <short description>
 
-<body — bullet list of what changed>
+- <what child issue 1 added>
+- <what child issue 2 added>
+- <what child issue N added>
 
-Closes <ISSUE-ID>
+Closes <PARENT-ISSUE-ID>
 ```
 
-**Type** maps from the issue's primary Linear label (priority order: Feature > Bug > Refactor > UI/UX > Database > Config/Build > Chore):
+**Type** = highest priority label across all child issues (priority order: Feature > Bug > Refactor > UI/UX > Database > Config/Build > Chore):
 
 | Linear Label    | Commit type |
 |----------------|-------------|
@@ -30,7 +34,7 @@ Closes <ISSUE-ID>
 
 **Example:**
 ```
-feat(wallet-system): implement wallet CRUD and carousel
+feat(ksy-10): implement wallet system
 
 - Add WalletCard, WalletCarousel, WalletForm components
 - Add createWallet, updateWallet, deleteWallet services
@@ -54,8 +58,8 @@ Closes KSY-10
    - TypeScript strict mode
 5. **Check Milestone Completion**: Verify all child issues are complete and meet acceptance criteria
 6. **Validate Dependencies**: Ensure no breaking changes and Expo SDK compatibility
-7. **Determine commit type**: Map primary label → commit type using table above
-8. **Create branch**: `{type}/ksy-{parent-id}-{scope}` (e.g. `feat/ksy-10-wallet-system`). Switch to existing branch if already created.
+7. **Determine commit type**: Map highest priority label across all child issues → commit type using table above
+8. **Create branch**: `{type}/ksy-{parent-id}-{scope}` (e.g. `feat/ksy-10-wallet-system`). Switch to existing branch if it already exists.
 9. **Stage ALL changes**: Run `git add -A` — single stage, no partial staging
 10. **Create ONE commit**: Single `git commit` using the format above. Do NOT make multiple commits.
 11. **Push branch**: `git push origin <branch>`
